@@ -25,7 +25,7 @@ SECRET_KEY = '&^5r8mqg^8ccryj=63xnz_i@eisz99zag5)57zh3!!f%m8u^g!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['118.89.202.213']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'buglist',
         'USER':'centos_sh',
         'PASSWORD':'maple1027',
-        'HOST':'',
+        'HOST':'www.sumoning.cn',
         'PORT':'',
     }
 }

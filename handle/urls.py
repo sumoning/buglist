@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 #!_*_coding:utf-8_*_
 
-from django.conf.urls import  url
+from django.conf.urls import  url,include
+from django.contrib.auth.views import login
 import views
 
 urlpatterns = [
-    url(r'^accounts/login/','django.contrib.auth.views.login',{'template_name':'login/login.html'}),
+    url(r'^accounts/login/',login,{'template_name':'login/login.html'}),
     url(r'^login/',views.Login),
     url(r'^logout/',views.Logout),
     url(r'^overview/',views.Overview),
