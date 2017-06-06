@@ -6,7 +6,6 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from models import context
 import traceback
@@ -17,7 +16,6 @@ import json
 
 # Create your views here.
 
-@csrf_exempt
 def Login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
@@ -31,13 +29,12 @@ def Login(request):
             data['user'] = user
             return HttpResponseRedirect('/')
         data['loginstatus'] = 'your username or password id uncorrect!'
-
-    return render_to_response('login/login.html',data)
+    return  render(request,'login/login.html',data)
 
 
 def Logout(request):
     auth.logout(request)
-    return render_to_response('login/login.html')
+    return render(request,'login/login.html')
 
 
 @login_required
