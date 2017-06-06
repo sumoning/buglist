@@ -17,7 +17,7 @@ import json
 
 # Create your views here.
 
-
+@csrf_exempt
 def Login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
@@ -32,16 +32,19 @@ def Login(request):
             return HttpResponseRedirect('/')
         data['loginstatus'] = 'your username or password id uncorrect!'
 
-    return render_to_response('login/login.html',data,context_instance=RequestContext(request))
+    return render_to_response('login/login.html',data)
+
 
 def Logout(request):
     auth.logout(request)
-    return render_to_response('login/login.html',context_instance=RequestContext(request))
+    return render_to_response('login/login.html')
 
 
 @login_required
 def Index(request):
     return render_to_response('web/index.html',{'user':request.user})
+
+
 @login_required
 def Overview(request):
     context_obj = context.objects.all().order_by('-id')
