@@ -1,0 +1,35 @@
+{% extends "web/layout.html" %}
+{% block con %}
+    <h2 class="sub-header">Overviews</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>numbers</th>
+                  <th>title</th>
+                  <th>auther</th>
+                  <th>time</th>
+                  <th>status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in context_obj %}
+                    {% if record.status  %}
+                        <tr>
+                        {% else %}
+                        <tr style="color: red;">
+                    {% endif %}
+                        <th><a href="/deltails/{{record.id }}">{{ record.id }}</a> </th>
+                        <th>{{ record.title }}</th>
+                        <th>{{ record.auther }}</th>
+                        <th>{{ record.time }}</th>
+                        <th>{{ record.status}}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+
+        </table>
+    </div>
+
+{% endblock %}

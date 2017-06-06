@@ -1,0 +1,33 @@
+<!Doctype html>
+{% load staticfiles %}
+<html>
+    <head>
+        <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+        <meta name="description" content="BugList WebSite">
+        <link rel="stylesheet" href="{% static "login.css" %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}" type="text/css"/>
+        <title>BugList</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <div class="account-wall">
+                        <h1 class="text-center login-title">Sign in to continue</h1>
+                        <form class="form-signin" method="POST" action="/login/">
+                             {% csrf_token %}
+                            <input name="user" type="user" class="form-control" id="user" placeholder="Username" required autofocus>
+                            <input name="password" type="password" class="form-control" id= 'password' placeholder="Password" required>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit" id="">Sign in</button>
+                            <p style="color: red;text-align: center;"> {{ loginstatus }} </p>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script type="text/javascript" src="{% static "jquery-3.2.0.min.js" %}" ></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+    </body>
+</html>

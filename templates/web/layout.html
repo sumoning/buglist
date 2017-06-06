@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>BugList</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
+        <!-- Custom styles for this template -->
+        <link href="{% static "dashboard.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static "custom.css" %}" rel="stylesheet" type="text/css"/>
+        {% block css %}
+        {% endblock %}
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="navbar-brand"><a href="/">BugList</a></div>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            {% if user.is_active %}
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="login_user">{{ user.username }}<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li style="text-align: center;" id="pwd"><a>change password</a></li>
+                                    <li style="text-align: center;"><a href="/logout/">logout</a></li>
+                                </ul>
+                            {% endif %}
+                        </li>
+                  </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 sidebar">
+
+                    <ul class="nav nav-sidebar" id="bar">
+                        <li ><a href="/overview/">Overview</a></li>
+                        <li ><a href="/search/" >Search Errors</a></li>
+                        <li ><a href="/record/" >Record Errors</a></li>
+                    </ul>
+
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    {% block con %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="shadow hide"></div>
+        <div class="infoedit hide">
+            <div class="cpwd">
+                    <p>original password:
+                        <input type="password" id='orgpwd' />
+                    </p>
+                    <p>new password:<br/>
+                        <input type="password" id='newpwd' />
+                    </p>
+                    <p>confirm password:<br/>
+                        <input type="password" id='conpwd' />
+                    </p>
+                    <p>
+                    <input type="submit" value="submit" style="margin-left: 20px; " id="submitEdit"/>
+                    <input type="button" value="cancle" id='cancelEdit'/>
+                    </p>
+                    <p  id="cpwdts" class="font-white">the password is not same</p>
+            </div>
+        </div>
+        <script src="{% static "jquery-3.2.0.min.js" %}"></script>
+        <script src="{% static "js/bootstrap.min.js"%}"></script>
+        <script src="{% static "custom.js" %}"></script>
+    {% block js %}
+    {% endblock %}
+    </body>
+</html>

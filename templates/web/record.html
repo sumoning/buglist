@@ -1,0 +1,47 @@
+{% extends "web/layout.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link  href="{% static "dcalendar.picker.css" %}" rel="stylesheet"/>
+{% endblock %}
+
+
+{% block con %}
+    <h2 class="sub-header">Record</h2>
+    <div class="container" id = "record">
+        <div class="form-group">
+             <label for="time">&nbsp&nbsptitle&nbsp&nbsp</label>
+             <input type="text"  id="title" size="30" name="title"/>
+        </div>
+        <div class="form-group">
+             <label for="details">details</label>
+             <br/>
+             <textarea name="details" cols="100" rows="5" id="details"></textarea>
+        </div>
+        <div class="checkbox">
+             <label><input type="checkbox" />Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-default" id="Submit">Submit</button>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            $("#Submit").click(function () {
+                var myDate = new Date();
+                var time = myDate.toLocaleDateString().replace(/\//g,"-");
+                var title = $("#title").val();
+                var details = $("#details").val();
+                if ((title && title.trim()) && (details && details.trim())){
+                    data = {'title':title,'details':details,'time':time};
+                    AjaxRequest('/counts/',data,null);
+                    $("#title").val("");
+                    $("#details").val("") ;
+                }
+            });
+        });
+    </script>
+{% endblock %}

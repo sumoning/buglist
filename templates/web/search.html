@@ -1,0 +1,91 @@
+{% extends "web/layout.html" %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "dcalendar.picker.css" %}"/>
+{% endblock %}
+{% block con %}
+    <h2 class="sub-header">Search</h2>
+    <div class="container">
+        <div id="div_to_search">
+            <label for="Auther">Auther</label>
+            <input type="text" name="Auther" id="Auther_to_serach" />
+            <label for="StartTime">StartTime</label>
+            <input  type="text" name="StartTime" id="StartTime" />
+            <label for="EndTime">EndTime</label>
+            <input  type="text" name="EndTime" id="EndTime"/>
+            <label for="Type"> Type</label>
+            <select name="Type" id="Type">
+                <option value='All'>All</option>
+                <option value='Solved'>Solved</option>
+                <option value='Unsolved'>Unsolved</option>
+            </select>
+            <input style="width:60px;cursor:pointer;" type="submit" value='Check' id="Check"/>
+        </div>
+        <hr/>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>numbers</th>
+                        <th>title</th>
+                        <th>auther</th>
+                        <th>time</th>
+                        <th>status</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{% static "dcalendar.picker.js" %}"></script>
+    <script type="text/javascript">
+        $('#StartTime').dcalendarpicker({
+            format:'yyyy-mm-dd'
+         });
+        $('#EndTime').dcalendarpicker({
+            format:'yyyy-mm-dd'
+        });
+        function callback(arg) {
+            document.getElementById("tbody").innerHTML = arg;
+        }
+        $(function () {
+            $("#Check").click(function () {
+                var  data = {};
+                var count = 0;
+                $("#div_to_search :text").each(function () {
+                   data[$(this).attr('name')]  = $(this).val();
+                   $(this).val("");
+                });
+                data['Type']=$("#div_to_search :selected").val();
+                $.each(data,function (i,item) {
+                    if (!item){
+                        count++;
+                    }
+                });
+                if(count>3){
+                    alert('you must input at least one parameters');
+                    return false;
+                }
+                var st = data['StartTime'];
+                var et = data['EndTime'];
+                if ( st && et  ){
+                    if (tab(st,et)){
+                        AjaxRequest("/search/",data,callback);
+                    }
+                    else{
+                        alert('the time you input is not correct!');
+                    }
+                }else{
+                    AjaxRequest("/search/",data,callback);
+                }
+            });
+        });
+    </script>
+{% endblock %}

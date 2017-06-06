@@ -1,0 +1,42 @@
+{% extends "web/layout.html" %}
+{% block con %}
+    <h2 class="sub-header">Deltails</h2>
+    <div class="blog-header">
+        <h1 class="blog-title">{{ record.title }}</h1>
+        <p class="lead blog-description">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspauther:&nbsp{{ record.auther }}</p>
+        <p class="lead blog-description">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptime:&nbsp{{ record.time }}</p>
+        <p class="lead blog-description" id ="status">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspstatus:&nbsp{{ record.status }}
+            {% if record.status == False %}
+                <br/>
+                <br/>
+                    <label><input type="checkbox" id="checkbox"/>Solved</label>
+                    <button type="submit" class="btn btn-default" id="Submit">Submit</button>
+                <br/>
+            {% endif %}
+        </p>
+        <p class="lead blog-description">&nbsp&nbspdetails:&nbsp</p>
+        <hr/>
+        <p>
+            {{ record.details }}
+        </p>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        function callback(arg) {
+            alert(arg);
+            document.getElementById("status").innerHTML = "&nbsp&nbsp&nbsp&nbsp&nbsp&nbspstatus:&nbspTrue";
+        }
+        $(function () {
+            $("#Submit").click(function () {
+                var obj = document.getElementById("checkbox");
+                if(obj.checked){
+                    url = "/deltails/" + {{ record.id }};
+                    //console.log({'status':obj.checked});
+                    AjaxRequest(url,{'status':obj.checked},callback);
+                }
+            });
+        });
+    </script>
+{% endblock %}
